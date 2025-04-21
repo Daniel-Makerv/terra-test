@@ -12,6 +12,7 @@
     ],
     "require": {
         "monolog/monolog": "^3.9",
-        "guzzlehttp/guzzle": "^7.9"
+        "guzzlehttp/guzzle": "^7.9",
+        "barryvdh/laravel-cors": "^3.0"
     }
 }

@@ -9,7 +9,15 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 // logger()->info('Este es un mensaje de log');
 // logger()->error('Algo salió mal');
 
-header('Content-Type: application/json');
+
+// Encabezados CORS
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+header("Allow: GET, POST, OPTIONS, PUT, DELETE");
+
+header('Content-Type: application/json'); // Obtener método
+
 // Obtener método
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -17,12 +25,15 @@ $method = $_SERVER['REQUEST_METHOD'];
 $request = $_SERVER['REQUEST_URI'];
 $path = parse_url($request, PHP_URL_PATH);
 $path = trim($path, '/');
-
-
-$url = $_GET['url'] ?? '';
 $segments = explode('/', rtrim($path, '/'));
 
 $isApi = $segments[0] === 'api';
+
+
+// Verificar solicitud OPTIONS (Preflight Request)
+if($method == "OPTIONS") {
+    die();
+}
 
 
 if ($isApi) {
@@ -50,7 +61,9 @@ if ($isApi) {
     $controller = new $controllerName();
 
 
-    header('Content-Type: application/json');
+
+    // Obtener método
+    $method = $_SERVER['REQUEST_METHOD'];
 
     switch ($method) {
         case 'GET':
