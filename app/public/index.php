@@ -1,8 +1,8 @@
 <?php
-require_once "../app/core/Controller.php";
-require_once "../app/core/Model.php";
-require_once "../app/migrations/Migrations.php"; // Agregar esta línea para incluir las migraciones
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once "../core/Controller.php";
+require_once "../core/Model.php";
+require_once "../migrations/Migrations.php"; // Agregar esta línea para incluir las migraciones
+require_once __DIR__ . '/../../vendor/autoload.php';
 // require_once __DIR__ . '/../app/Helpers/helpers.php';
 
 
@@ -30,10 +30,10 @@ if ($isApi) {
     $method = $_SERVER['REQUEST_METHOD'];
     $id = $segments[2] ?? null;
 
-    $controllerFile = "../app/controllers/Api/$controllerName.php";
+    $controllerFile = "../controllers/Api/$controllerName.php";
 
 
-    if (!file_exists($controllerFile)) {//404 controller no encontrado
+    if (!file_exists($controllerFile)) { //404 controller no encontrado
         http_response_code(404);
         echo json_encode(["code" => 404, "message" => "Este endpoint no existe", "data" => null]);
         exit;

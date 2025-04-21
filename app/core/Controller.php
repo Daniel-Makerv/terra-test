@@ -1,7 +1,9 @@
 <?php
-class Controller {
-    public function model($model) {
-        require_once "../app/models/$model.php";
+class Controller
+{
+    public function model($model)
+    {
+        require_once "../models/$model.php";
         return new $model();
     }
 }
