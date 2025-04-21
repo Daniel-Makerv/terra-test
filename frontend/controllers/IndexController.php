@@ -16,8 +16,9 @@ class IndexController extends Controller
 
     public function create()
     {
+
         // Carga la vista para crear un nuevo usuario
-        // $this->view('create');
+        $this->view('add');
     }
 
     public function edit($id)
