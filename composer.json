@@ -1,0 +1,16 @@
+{
+    "name": "josedanieldelacruzrivera/task-list",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "daniel rivera"
+        }
+    ],
+    "require": {
+        "monolog/monolog": "^3.9"
+    }
+}
