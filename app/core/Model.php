@@ -3,6 +3,7 @@ class Model {
     protected $db;
 
     public function __construct() {
+        //conexion
         $host = getenv('DB_HOST') ?: 'mysql';
         $db   = getenv('DB_NAME') ?: 'tasklist';
         $user = getenv('DB_USER') ?: 'root';

@@ -11,7 +11,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 
 // Ejecutar las migraciones al iniciar el proyecto
-runMigrations(); // Llamar a la función que ejecuta las migraciones
+runMigrations();
 
 $url = $_GET['url'] ?? '';
 $segments = explode('/', rtrim($url, '/'));

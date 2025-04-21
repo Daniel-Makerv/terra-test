@@ -6,7 +6,7 @@ function runMigrations()
     try {
         // error_log("prueba log: " . "\n", 3, __DIR__ . "../app/Storage/Logs/app.log");
 
-        // Conectar a la base de datos
+        // Conectar a la base de datos tasklist
         $pdo = new PDO('mysql:host=mysql;dbname=tasklist', 'root', 'secret');
 
         // Verificar si la tabla de migraciones existe, si no, crearla
