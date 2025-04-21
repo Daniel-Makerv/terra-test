@@ -46,3 +46,4 @@ class UserController extends Controller {
         echo json_encode(["message" => "Usuario eliminado"]);
     }
 }
+?>

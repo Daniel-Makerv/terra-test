@@ -9,22 +9,46 @@ require_once __DIR__ . '/../vendor/autoload.php';
 // logger()->info('Este es un mensaje de log');
 // logger()->error('Algo salió mal');
 
+header('Content-Type: application/json');
+// Obtener método
+$method = $_SERVER['REQUEST_METHOD'];
 
-// Ejecutar las migraciones al iniciar el proyecto
-runMigrations();
+// Ruta solicitada
+$request = $_SERVER['REQUEST_URI'];
+$path = parse_url($request, PHP_URL_PATH);
+$path = trim($path, '/');
+
 
 $url = $_GET['url'] ?? '';
-$segments = explode('/', rtrim($url, '/'));
+$segments = explode('/', rtrim($path, '/'));
 
 $isApi = $segments[0] === 'api';
+
 
 if ($isApi) {
     $controllerName = ucfirst($segments[1]) . 'Controller';
     $method = $_SERVER['REQUEST_METHOD'];
     $id = $segments[2] ?? null;
 
-    require_once "../app/controllers/Api/$controllerName.php";
+    $controllerFile = "../app/controllers/Api/$controllerName.php";
+
+
+    if (!file_exists($controllerFile)) {//404 controller no encontrado
+        http_response_code(404);
+        echo json_encode(["code" => 404, "message" => "Este endpoint no existe", "data" => null]);
+        exit;
+    }
+
+    require_once $controllerFile;
+
+    if (!class_exists($controllerName)) {
+        echo json_encode(["code" => 500, "message" => "El controlador '$controllerName' no se pudo cargar correctamente", "data" => null]);
+        exit;
+    }
+
+
     $controller = new $controllerName();
+
 
     header('Content-Type: application/json');
 
@@ -50,4 +74,6 @@ if ($isApi) {
     }
 
     exit;
+} else {
+    runMigrations();
 }
