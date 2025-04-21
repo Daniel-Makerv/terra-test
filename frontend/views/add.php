@@ -1,3 +1,7 @@
+<?php
+require_once '../components/alert.php';
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -100,24 +104,86 @@
             </ul>
         </div>
     </aside>
+    <!--  -->
     <!-- table -->
     <div class="p-4 sm:ml-64 mt-14">
+        <!-- alerta success -->
+        <div id="alert-container"></div>
         <form class="max-w-sm mx-auto">
             <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white mb-4 mt-4">Crear Nueva Tarea</h1>
             <div class="mb-5 mt-14">
                 <label for="base-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre de la tarea:</label>
-                <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <input type="text" id="task_name" name="task_name"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <p id="error-msg" class="mt-2 text-sm text-red-600 dark:text-red-500 hidden">
+                    <span class="font-medium">¡Oops!</span> El nombre de la tarea es obligatorio.
+                </p>
             </div>
-            <div class="flex justify-center">
+            <div class="flex justify-center gap-4"> <!-- Añadido gap -->
+                <a href="/" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Regresar
+                </a>
                 <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     Registrar Tarea
                 </button>
             </div>
+
         </form>
     </div>
-
-
 </body>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </html>
+<script>
+    $(document).ready(function() {
+        $('form').on('submit', function(e) {
+            e.preventDefault(); // Prevenir envío
+
+            const task_name = $('#task_name');
+            const valueInput = task_name.val().trim();
+            const mensajeError = $('#error-msg');
+            const alertContainer = $('#alert-container');
+
+
+            // Limpiar errores anteriores
+            task_name.removeClass('bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500');
+            mensajeError.addClass('hidden');
+
+
+            if (valueInput === '') {
+                // Si está vacío, mostrar error
+                task_name.addClass('bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500');
+                mensajeError.removeClass('hidden');
+                return; // no mandamos la petición
+            }
+
+
+            $.ajax({
+                url: 'http://localhost:8080/api/task',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    task_name: valueInput
+                }),
+                success: function(resp) {
+                    $('#alert-container').html(`
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+                <strong class="font-bold">Éxito:</strong>
+                <span class="block sm:inline">Tarea guardada correctamente.</span>
+            </div>
+        `);
+                    $('#base-input').val(''); // Limpiar input si quieres
+                },
+                error: function(xhr, status, error) {
+                    $('#alert-container').html(`
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+                <strong class="font-bold">Error:</strong>
+                <span class="block sm:inline">Ocurrió un error al guardar la tarea. ${error}</span>
+            </div>
+        `);
+                }
+            });
+        });
+    });
+</script>

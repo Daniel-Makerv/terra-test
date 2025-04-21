@@ -139,58 +139,21 @@
                     <input type="text" id="table-search-users" class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Buscar tareas">
                 </div>
             </div>
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400" id="dataTable">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-6 py-3">
-                            Name
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Position
+                            Nombre Tarea
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Status
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Action
+                            Acciones
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                            <img class="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-1.jpg" alt="Jese image">
-                            <div class="ps-3">
-                                <div class="text-base font-semibold">Terra User</div>
-                                <div class="font-normal text-gray-500">terra@example.com</div>
-                            </div>
-                        </th>
-                        <td class="px-6 py-4">
-                            React Developer
-                        </td>
-                        <td class="px-6 py-4">
-                            <div class="flex items-center">
-                                <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> Online
-                            </div>
-                        </td>
-                        <td class="px-6 py-4">
-                            <a href="#" type="button" data-modal-target="editUserModal" data-modal-show="editUserModal" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><svg class="w-[45px] h-[45px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1" d="m11.5 11.5 2.071 1.994M4 10h5m11 0h-1.5M12 7V4M7 7V4m10 3V4m-7 13H8v-2l5.227-5.292a1.46 1.46 0 0 1 2.065 2.065L10 17Zm-5 3h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z" />
-                                </svg>
-
-                            </a>
-                            <!-- Modal toggle -->
-                            <a href="#"
-                                type="button"
-                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                data-modal-target="popup-modal"
-                                data-modal-toggle="popup-modal">
-                                <svg class="w-[45px] h-[45px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                    <path fill-rule="evenodd" d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clip-rule="evenodd" />
-                                </svg>
-                            </a>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
             <!-- create task modal -->
@@ -311,10 +274,6 @@
                 </div>
             </div>
 
-
-
-
-
             <!--  -->
         </div>
 
@@ -322,5 +281,68 @@
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </html>
+<script>
+    $(document).ready(function() {
+
+        function cargarTareas(filtro = '') {
+            // Limpiar la tabla antes de volver a cargar los datos
+            $('#dataTable tbody').empty();
+
+            // Petición AJAX con el parámetro de búsqueda (si existe)
+            $.ajax({
+                url: 'http://localhost:8080/api/task',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    search: filtro
+                }, // Envía como query param
+                success: function(data) {
+                    data.forEach(item => {
+                        $('#dataTable tbody').append(
+                            '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">' +
+                            '<td class="px-6 py-4">' + item.task_name + '</td>' +
+
+                            // Aquí se añade el nuevo td con el estado "Online"
+                            '<td class="px-6 py-4">' +
+                            '<div class="flex items-center">' +
+                            '<div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> Online' +
+                            '</div>' +
+                            '</td>' +
+
+                            '<td class="px-6 py-4">' +
+                            '<a href="#" type="button" data-modal-target="editUserModal" data-modal-show="editUserModal" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">' +
+                            '<svg class="w-[45px] h-[45px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">' +
+                            '<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1" d="m11.5 11.5 2.071 1.994M4 10h5m11 0h-1.5M12 7V4M7 7V4m10 3V4m-7 13H8v-2l5.227-5.292a1.46 1.46 0 0 1 2.065 2.065L10 17Zm-5 3h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z" />' +
+                            '</svg>' +
+                            '</a>' +
+                            '<a href="#" type="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" data-modal-target="popup-modal" data-modal-toggle="popup-modal">' +
+                            '<svg class="w-[45px] h-[45px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">' +
+                            '<path fill-rule="evenodd" d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clip-rule="evenodd" />' +
+                            '</svg>' +
+                            '</a>' +
+                            '</td>' +
+                            '</tr>'
+                        );
+                    });
+
+                },
+                error: function(error) {
+                    console.log('Error:', error);
+                }
+            });
+        }
+
+        // Cargar tareas al iniciar
+        cargarTareas();
+
+        // Detectar escritura en el input
+        $('#table-search-users').on('input', function() {
+            const valor = $(this).val();
+            cargarTareas(valor);
+        });
+
+    });
+</script>
