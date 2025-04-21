@@ -40,7 +40,7 @@ class TaskController  extends Controller
     {
         if (isset($data['task_name'])) {
             $this->taskModel->update($id, $data['task_name']);
-            echo json_encode(["message" => "Tarea actualizado"]);
+            echo json_encode(["message" => "Tarea actualizada correctamente"]);
         } else {
             http_response_code(400);
             echo json_encode(["message" => "Datos incompletos"]);
@@ -50,6 +50,6 @@ class TaskController  extends Controller
     public function destroy($id)
     {
         $this->taskModel->delete($id);
-        echo json_encode(["message" => "Tarea eliminado"]);
+        echo json_encode(["message" => "Tarea eliminada correctamente"]);
     }
 }
