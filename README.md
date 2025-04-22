@@ -1,4 +1,4 @@
-# Nombre del Proyecto
+# Terra test
 
 ## Requisitos
 
@@ -10,7 +10,6 @@
 2. Abre una terminal y navega a la carpeta raíz del proyecto.
    ```bash
    cd ruta/al/proyecto
-3.-ejecutar el siguiente comando:
-    ```bash
-    docker-compose up --build
-
+3. Ejecutar el siguiente comando:
+   ```bash
+   docker-compose up --build
