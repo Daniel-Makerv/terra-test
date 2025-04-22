@@ -112,6 +112,9 @@ require_once '../components/alert.php';
     <!--  -->
     <!-- table -->
     <div class="p-4 sm:ml-64 mt-14">
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+            Tareas
+        </h3>
         <div id="alert-container"></div>
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -333,16 +336,21 @@ require_once '../components/alert.php';
                     task_name: taskName
                 }),
                 success: function(response) {
-                    $('#editUserModal').attr('data-modal-show', 'false'); // Cerrar el modal
+                    document.querySelector('[data-modal-hide="editUserModal"]').click();
                     $('#alert-container').html(`
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
                 <strong class="font-bold">¡Correcto!</strong>
                 <span class="block sm:inline">Tarea Editada correctamente.</span>
             </div>
         `);
+                    const time = 900;
+                    // Función que se ejecutará cuando termine el tiempo
+                    setTimeout(() => {
+                        location.reload();
+                    }, time);
                 },
                 error: function(xhr, status, error) {
-                    $('#editUserModal').attr('data-modal-show', 'false'); // Cerrar el modal
+                    document.querySelector('[data-modal-hide="editUserModal"]').click();
                     $('#alert-container').html(`
             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
                 <strong class="font-bold">¡Error!</strong>
