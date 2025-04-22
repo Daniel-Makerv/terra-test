@@ -175,13 +175,15 @@ require_once '../components/alert.php';
                             </div>
                         </td>
                         <td class="px-6 py-4">
-                            <a href="#" type="button" data-modal-target="editUserModal" data-modal-show="editUserModal" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><svg class="w-[45px] h-[45px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <a href="#" type="button" data-modal-target="editUserModal" data-modal-show="editUserModal"
+                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                data-task-id="<?= $task['id'] ?>"
+                                data-task-name="<?= htmlspecialchars($task['task_name']) ?>">
+                                <svg class="w-[45px] h-[45px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1" d="m11.5 11.5 2.071 1.994M4 10h5m11 0h-1.5M12 7V4M7 7V4m10 3V4m-7 13H8v-2l5.227-5.292a1.46 1.46 0 0 1 2.065 2.065L10 17Zm-5 3h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z" />
                                 </svg>
-
                             </a>
-                            <!-- Modal toggle -->
-
+                            <!-- Modal delete -->
                             <a href="#" data-modal-target="popup-modal" data-modal-toggle="popup-modal"
                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                 type="button"
@@ -217,43 +219,15 @@ require_once '../components/alert.php';
                         <!-- Modal body -->
                         <div class="p-6 space-y-6">
                             <div class="grid grid-cols-6 gap-6">
-                                <div class="col-span-6 sm:col-span-3">
-                                    <label for="first-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
-                                    <input type="text" name="first-name" id="first-name" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Bonnie" required="">
-                                </div>
-                                <div class="col-span-6 sm:col-span-3">
-                                    <label for="last-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
-                                    <input type="text" name="last-name" id="last-name" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Green" required="">
-                                </div>
-                                <div class="col-span-6 sm:col-span-3">
-                                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                                    <input type="email" name="email" id="email" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="example@company.com" required="">
-                                </div>
-                                <div class="col-span-6 sm:col-span-3">
-                                    <label for="phone-number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
-                                    <input type="number" name="phone-number" id="phone-number" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="e.g. +(12)3456 789" required="">
-                                </div>
-                                <div class="col-span-6 sm:col-span-3">
-                                    <label for="department" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department</label>
-                                    <input type="text" name="department" id="department" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Development" required="">
-                                </div>
-                                <div class="col-span-6 sm:col-span-3">
-                                    <label for="company" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company</label>
-                                    <input type="number" name="company" id="company" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123456" required="">
-                                </div>
-                                <div class="col-span-6 sm:col-span-3">
-                                    <label for="current-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Current Password</label>
-                                    <input type="password" name="current-password" id="current-password" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="••••••••" required="">
-                                </div>
-                                <div class="col-span-6 sm:col-span-3">
-                                    <label for="new-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New Password</label>
-                                    <input type="password" name="new-password" id="new-password" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="••••••••" required="">
+                                <div class="col-span-6 sm:col-span-2">
+                                    <label for="first-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre de la tarea:</label>
+                                    <input type="text" name="task_name" id="task_name" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="eventos" required="">
                                 </div>
                             </div>
                         </div>
                         <!-- Modal footer -->
                         <div class="flex items-center p-6 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600">
-                            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save all</button>
+                            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Guardar</button>
                         </div>
                     </form>
                 </div>
@@ -328,5 +302,55 @@ require_once '../components/alert.php';
                 }
             });
         }
+    });
+</script>
+<!-- script para editar -->
+<script>
+    $(document).ready(function() {
+        // Detecta todos los botones de editar
+        $('[data-modal-show="editUserModal"]').on('click', function() {
+            // Obtiene los datos del botón
+            const taskName = $(this).data('task-name');
+            const taskId = $(this).data('task-id');
+
+            // Rellena los campos del modal
+            $('#task_name').val(taskName);
+            $('#editUserModal').data('task-id', taskId); // Guarda el id en el modal
+        });
+
+        // Captura el submit del formulario del modal
+        $('#editUserModal form').on('submit', function(e) {
+            e.preventDefault();
+
+            const taskName = $('#task_name').val();
+            const taskId = $('#editUserModal').data('task-id');
+
+            // AJAX request
+            $.ajax({
+                url: `http://localhost:8080/api/task/${taskId}`,
+                method: 'PUT',
+                data: JSON.stringify({
+                    task_name: taskName
+                }),
+                success: function(response) {
+                    $('#editUserModal').attr('data-modal-show', 'false'); // Cerrar el modal
+                    $('#alert-container').html(`
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+                <strong class="font-bold">¡Correcto!</strong>
+                <span class="block sm:inline">Tarea Editada correctamente.</span>
+            </div>
+        `);
+                },
+                error: function(xhr, status, error) {
+                    $('#editUserModal').attr('data-modal-show', 'false'); // Cerrar el modal
+                    $('#alert-container').html(`
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+                <strong class="font-bold">¡Error!</strong>
+                <span class="block sm:inline">Ocurrió un error al borrar la tarea. ${error}</span>
+            </div>
+        `);
+                }
+            });
+        });
     });
 </script>
