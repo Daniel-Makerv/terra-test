@@ -8,10 +8,10 @@ class IndexController extends Controller
     public function index()
     {
         $TaskService = new TaskService();
-        $users = $TaskService->getData(); // Llamas a la API
+        $tasks = $TaskService->getData(); // Llamas a la API
 
         // Obtén todos los usuarios (por ejemplo)
-        $this->view('index', ['users' => $users]);
+        $this->view('index', ['tasks' => $tasks]);
     }
 
     public function create()

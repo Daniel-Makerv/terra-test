@@ -10,8 +10,8 @@ class TaskService
     {
         $client = new Client();
 
-        $response = $client->request('GET', 'https://pokeapi.co/api/v2/berry/64/');
-        // $response = $client->request('GET', 'http://localhost:8080/api/task');
+
+        $response = $client->request('GET', 'http://host.docker.internal:8080/api/task');
         $body = $response->getBody();
         return  json_decode($body, true);
     }

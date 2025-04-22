@@ -154,39 +154,37 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <?php foreach ($tasks as $task): ?>
+                    <tr>
+                        <td class="px-6 py-4">
+                            <?= htmlspecialchars($task['task_name']) ?>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center">
+                                <div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> Online
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <a href="#" type="button" data-modal-target="editUserModal" data-modal-show="editUserModal" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><svg class="w-[45px] h-[45px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1" d="m11.5 11.5 2.071 1.994M4 10h5m11 0h-1.5M12 7V4M7 7V4m10 3V4m-7 13H8v-2l5.227-5.292a1.46 1.46 0 0 1 2.065 2.065L10 17Zm-5 3h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z" />
+                                </svg>
+
+                            </a>
+                            <!-- Modal toggle -->
+
+
+                            <a href="#" data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" type="button">
+                                <svg class="w-[45px] h-[45px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                    <path fill-rule="evenodd" d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tr>
                 </tbody>
             </table>
-            <!-- create task modal -->
-            <div id="createUserModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 items-center justify-center hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                <div class="relative w-full max-w-2xl max-h-full">
-                    <!-- Modal content -->
-                    <form class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
-                        <!-- Modal header -->
-                        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600 border-gray-200">
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                Crear Tarea
-                            </h3>
-                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="createUserModal">
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                </svg>
-                                <span class="sr-only">Cerra Modal</span>
-                            </button>
-                        </div>
-                        <!-- Modal body -->
-                        <div class="p-6 space-y-6">
-                            <div class="mb-6">
-                                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre:</label>
-                                <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ejemplo: Revisar correos" required />
-                            </div>
-                        </div>
-                        <!-- Modal footer -->
-                        <div class="flex items-center p-6 space-x-3 rtl:space-x-reverse border-t border-gray-200 rounded-b dark:border-gray-600">
-                            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Guardar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
             <!--  -->
             <!-- Edit user modal -->
             <div id="editUserModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 items-center justify-center hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -196,7 +194,7 @@
                         <!-- Modal header -->
                         <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600 border-gray-200">
                             <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                Edit user
+                                Editar Tarea
                             </h3>
                             <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="editUserModal">
                                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -284,65 +282,3 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </html>
-<script>
-    $(document).ready(function() {
-
-        function cargarTareas(filtro = '') {
-            // Limpiar la tabla antes de volver a cargar los datos
-            $('#dataTable tbody').empty();
-
-            // Petición AJAX con el parámetro de búsqueda (si existe)
-            $.ajax({
-                url: 'http://localhost:8080/api/task',
-                type: 'GET',
-                dataType: 'json',
-                data: {
-                    search: filtro
-                }, // Envía como query param
-                success: function(data) {
-                    data.forEach(item => {
-                        $('#dataTable tbody').append(
-                            '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">' +
-                            '<td class="px-6 py-4">' + item.task_name + '</td>' +
-
-                            // Aquí se añade el nuevo td con el estado "Online"
-                            '<td class="px-6 py-4">' +
-                            '<div class="flex items-center">' +
-                            '<div class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"></div> Online' +
-                            '</div>' +
-                            '</td>' +
-
-                            '<td class="px-6 py-4">' +
-                            '<a href="#" type="button" data-modal-target="editUserModal" data-modal-show="editUserModal" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">' +
-                            '<svg class="w-[45px] h-[45px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">' +
-                            '<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1" d="m11.5 11.5 2.071 1.994M4 10h5m11 0h-1.5M12 7V4M7 7V4m10 3V4m-7 13H8v-2l5.227-5.292a1.46 1.46 0 0 1 2.065 2.065L10 17Zm-5 3h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z" />' +
-                            '</svg>' +
-                            '</a>' +
-                            '<a href="#" type="button" class="font-medium text-blue-600 dark:text-blue-500 hover:underline" data-modal-target="popup-modal" data-modal-toggle="popup-modal">' +
-                            '<svg class="w-[45px] h-[45px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">' +
-                            '<path fill-rule="evenodd" d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clip-rule="evenodd" />' +
-                            '</svg>' +
-                            '</a>' +
-                            '</td>' +
-                            '</tr>'
-                        );
-                    });
-
-                },
-                error: function(error) {
-                    console.log('Error:', error);
-                }
-            });
-        }
-
-        // Cargar tareas al iniciar
-        cargarTareas();
-
-        // Detectar escritura en el input
-        $('#table-search-users').on('input', function() {
-            const valor = $(this).val();
-            cargarTareas(valor);
-        });
-
-    });
-</script>
